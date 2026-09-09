@@ -3,169 +3,602 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Mediterranean Luxury Menu</title>
-
+<title>Trattoria da Elena — Menu</title>
 <style>
+  :root{
+    --ink: #1f2e22;
+    --ink-light: #2c4030;
+    --paper: #f6f1e4;
+    --paper-dim: #ece4d0;
+    --wine: #8c2f39;
+    --wine-dark: #6e2129;
+    --gold: #b08968;
+    --charcoal: #2b2621;
+    --line: rgba(43,38,33,0.16);
+  }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+  *{ box-sizing: border-box; }
 
-body{
-font-family:Georgia, serif;
-background:#F7F0E3;
-color:#382C22;
-}
+  html, body{
+    margin:0;
+    padding:0;
+    background: var(--ink);
+    color: var(--charcoal);
+    font-family: 'Iowan Old Style','Georgia',serif;
+  }
 
-.hero{
-min-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:40px 20px;
-}
+  body{
+    min-height:100vh;
+  }
 
-.logo{
-font-size:80px;
-margin-bottom:20px;
-color:#C89B3C;
-}
+  @font-face{
+    /* fallback stack only — no external fetch needed */
+  }
 
-h1{
-font-size:3rem;
-color:#7C1F2A;
-margin-bottom:15px;
-}
+  .sans{
+    font-family: -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
 
-.subtitle{
-font-size:1.2rem;
-max-width:650px;
-line-height:1.8;
-margin-bottom:35px;
-}
+  /* ---------- Header ---------- */
+  header{
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2.6rem 1.5rem 2rem;
+    text-align:center;
+    position: relative;
+    overflow:hidden;
+  }
 
-.btn{
-display:inline-block;
-3
-padding:15px 35px;
-4
-background:#7C1F2A;
-5
-color:white;
-6
-text-decoration:none;
-7
-border-radius:50px;
-8
-font-weight:bold;
-9
-transition:.3s;
-}
+  header::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:14px;
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--gold) 0 10px,
+      transparent 10px 20px
+    );
+    opacity:0.5;
+  }
 
-.btn:hover{
-background:#C89B3C;
-}
+  header h1{
+    font-size: clamp(2.1rem, 6vw, 3rem);
+    margin: 0 0 0.35rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
 
-.features{
-margin-top:60px;
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:15px;
-max-width:1000px;
-}
+  header p.tagline{
+    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+    color: var(--gold);
+    margin: 0;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+  }
 
-.card{
-background:white;
-padding:20px;
-border-radius:15px;
-min-width:220px;
-box-shadow:0 4px 10px rgba(0,0,0,.08);
-}
+  /* ---------- Search + filter bar ---------- */
+  .controls{
+    position: sticky;
+    top:0;
+    z-index: 30;
+    background: var(--paper);
+    padding: 0.9rem 1rem 0.8rem;
+    border-bottom: 1px solid var(--line);
+  }
 
-.card h3{
-color:#7C1F2A;
-margin-bottom:10px;
-}
+  .search-wrap{
+    max-width: 640px;
+    margin: 0 auto 0.8rem;
+    position: relative;
+  }
 
-footer{
-text-align:center;
-padding:30px;
-font-size:.9rem;
-color:#666;
-}
+  .search-wrap input{
+    width:100%;
+    padding: 0.7rem 1rem 0.7rem 2.4rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: #fff;
+    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.95rem;
+    color: var(--charcoal);
+    outline: none;
+  }
 
-@media(max-width:768px){
+  .search-wrap input:focus{
+    border-color: var(--wine);
+    box-shadow: 0 0 0 3px rgba(140,47,57,0.12);
+  }
 
-h1{
-font-size:2rem;
-}
+  .search-wrap svg{
+    position:absolute;
+    left: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px; height:16px;
+    opacity:0.5;
+  }
 
-.subtitle{
-font-size:1rem;
-}
+  .tabs{
+    max-width: 640px;
+    margin: 0 auto;
+    display:flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
 
-.card{
-width:100%;
-}
+  .tabs::-webkit-scrollbar{ display:none; }
 
-}
+  .tab{
+    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+    flex: 0 0 auto;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--charcoal);
+    font-size: 0.88rem;
+    cursor:pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    white-space: nowrap;
+  }
 
+  .tab.active{
+    background: var(--wine);
+    border-color: var(--wine);
+    color: var(--paper);
+  }
+
+  /* ---------- Menu body ---------- */
+  main{
+    background: var(--paper);
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1.6rem 1.2rem 4rem;
+  }
+
+  .category-block{
+    margin-bottom: 2.4rem;
+  }
+
+  .category-block h2{
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--wine-dark);
+    margin: 0 0 0.9rem;
+    display:flex;
+    align-items:baseline;
+    gap: 0.6rem;
+  }
+
+  .category-block h2 .count{
+    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.7rem;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .dish{
+    display:flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.6rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px dashed var(--line);
+    cursor: pointer;
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    width:100%;
+    text-align:left;
+    font: inherit;
+    color: inherit;
+  }
+
+  .dish:last-child{ border-bottom: none; }
+
+  .dish:hover .dish-name,
+  .dish:focus-visible .dish-name{
+    color: var(--wine);
+  }
+
+  .dish:focus-visible{
+    outline: 2px solid var(--wine);
+    outline-offset: 2px;
+  }
+
+  .dish-left{
+    flex: 1;
+    min-width:0;
+  }
+
+  .dish-name{
+    font-size: 1.08rem;
+    transition: color 0.15s ease;
+  }
+
+  .dish-badges{
+    margin-top: 0.25rem;
+    display:flex;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+  }
+
+  .badge{
+    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.66rem;
+    padding: 0.12rem 0.5rem;
+    border-radius: 999px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .badge.veg{ background: #dbe7d4; color: #3c5a34; }
+  .badge.spicy{ background: #f4dcd6; color: var(--wine-dark); }
+  .badge.gf{ background: #e6ddc8; color: #6b5730; }
+
+  .dish-price{
+    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 600;
+    color: var(--charcoal);
+    white-space: nowrap;
+  }
+
+  .empty-state{
+    text-align:center;
+    padding: 3rem 1rem;
+    color: var(--charcoal);
+    opacity: 0.6;
+    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+    display:none;
+  }
+
+  .empty-state.show{ display:block; }
+
+  /* ---------- Modal ---------- */
+  .modal-backdrop{
+    position: fixed;
+    inset:0;
+    background: rgba(31,46,34,0.55);
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    z-index: 100;
+    opacity:0;
+    pointer-events:none;
+    transition: opacity 0.2s ease;
+  }
+
+  .modal-backdrop.open{
+    opacity:1;
+    pointer-events:auto;
+  }
+
+  @media (min-width: 640px){
+    .modal-backdrop{ align-items:center; }
+  }
+
+  .modal{
+    background: var(--paper);
+    width: 100%;
+    max-width: 480px;
+    border-radius: 18px 18px 0 0;
+    padding: 1.8rem 1.6rem 2.2rem;
+    transform: translateY(24px);
+    transition: transform 0.22s ease;
+    max-height: 82vh;
+    overflow-y:auto;
+  }
+
+  @media (min-width: 640px){
+    .modal{ border-radius: 18px; }
+  }
+
+  .modal-backdrop.open .modal{
+    transform: translateY(0);
+  }
+
+  .modal-top{
+    display:flex;
+    justify-content: space-between;
+    align-items:flex-start;
+    gap: 1rem;
+  }
+
+  .modal h3{
+    font-size: 1.5rem;
+    margin: 0 0 0.3rem;
+    color: var(--wine-dark);
+    font-weight:500;
+  }
+
+  .modal .modal-price{
+    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-weight:700;
+    font-size: 1.15rem;
+    color: var(--charcoal);
+    white-space: nowrap;
+  }
+
+  .modal-close{
+    background: var(--paper-dim);
+    border: none;
+    width: 30px; height:30px;
+    border-radius: 50%;
+    font-size: 1rem;
+    line-height:1;
+    cursor:pointer;
+    color: var(--charcoal);
+    flex-shrink:0;
+  }
+
+  .modal-badges{
+    margin: 0.6rem 0 1rem;
+    display:flex;
+    gap: 0.4rem;
+    flex-wrap:wrap;
+  }
+
+  .modal p.desc{
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0 0 1rem;
+  }
+
+  .modal .allergens{
+    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.82rem;
+    color: var(--charcoal);
+    opacity: 0.7;
+    border-top: 1px solid var(--line);
+    padding-top: 0.9rem;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    text-align:center;
+    padding: 1.6rem 1rem 2.2rem;
+    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.78rem;
+    color: var(--paper);
+    background: var(--ink);
+    opacity: 0.75;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition: none !important; }
+  }
 </style>
 </head>
-
 <body>
 
-<section class="hero">
+<header>
+  <h1>Trattoria da Elena</h1>
+  <p class="tagline">MENU DIGITALE · AGGIORNATO OGGI</p>
+</header>
 
-<div class="logo">⚜️</div>
-
-<h1>Mediterranean Luxury</h1>
-
-<p class="subtitle">
-Template professionale per ristoranti, trattorie, pizzerie,
-agriturismi e locali che desiderano un menu digitale elegante,
-veloce e perfetto per QR Code.
-</p>
-
-[ SCOPRI IL TEMPLATE ]
-
-
-
-<div class="features" id="features">
-
-<div class="card">
-<h3>🍆 Menu Completo</h3>
-<p>Antipasti, Primi, Secondi, Dolci e Bevande.</p>
+<div class="controls">
+  <div class="search-wrap">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="searchInput" placeholder="Cerca un piatto..." autocomplete="off">
+  </div>
+  <div class="tabs" id="tabs"></div>
 </div>
 
-<div class="card">
-<h3>📱 Mobile First</h3>
-<p>Ottimizzato per smartphone e QR Code.</p>
+<main id="menuContainer"></main>
+
+<div class="empty-state sans" id="emptyState">Nessun piatto trovato. Prova un'altra ricerca.</div>
+
+<footer>Trattoria da Elena · Via delle Erbe 12 · Aperti tutti i giorni 12:00–15:00 / 19:00–23:00</footer>
+
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-top">
+      <div>
+        <h3 id="modalTitle"></h3>
+      </div>
+      <span class="modal-price" id="modalPrice"></span>
+    </div>
+    <div class="modal-badges" id="modalBadges"></div>
+    <p class="desc" id="modalDesc"></p>
+    <p class="allergens sans" id="modalAllergens"></p>
+    <button class="modal-close sans" id="modalCloseBtn" aria-label="Chiudi" style="position:absolute; top:1.4rem; right:1.4rem;">✕</button>
+  </div>
 </div>
 
-<div class="card">
-<h3>🎨 Personalizzabile</h3>
-<p>Cambia logo, colori e contenuti in pochi minuti.</p>
-</div>
+<script>
+  // ============ DATI DEL MENU ============
+  // Modifica liberamente questo array per personalizzare il tuo menu.
+  const MENU = [
+    {
+      category: "Antipasti",
+      items: [
+        { name: "Bruschetta al pomodoro", price: 6.5, desc: "Pane casereccio abbrustolito, pomodorino fresco, basilico e un filo d'olio extravergine.", badges: ["veg"], allergens: "Contiene glutine." },
+        { name: "Tagliere di salumi e formaggi", price: 14, desc: "Selezione di salumi locali, formaggi stagionati, miele di castagno e confettura di fichi.", badges: [], allergens: "Contiene lattosio, solfiti." },
+        { name: "Polpo alla brace", price: 13, desc: "Polpo grigliato su crema di patate, olive taggiasche e polvere di capperi.", badges: ["gf"], allergens: "Contiene molluschi." }
+      ]
+    },
+    {
+      category: "Primi",
+      items: [
+        { name: "Tagliatelle al ragù", price: 11, desc: "Pasta fresca all'uovo con ragù di manzo cotto lentamente per 6 ore.", badges: [], allergens: "Contiene glutine, uova." },
+        { name: "Risotto ai funghi porcini", price: 12.5, desc: "Riso Carnaroli mantecato con funghi porcini freschi e una spolverata di prezzemolo.", badges: ["veg", "gf"], allergens: "Contiene lattosio." },
+        { name: "Spaghetti all'arrabbiata", price: 9.5, desc: "Spaghetti trafilati al bronzo, pomodoro San Marzano, aglio e peperoncino piccante.", badges: ["veg", "spicy"], allergens: "Contiene glutine." },
+        { name: "Gnocchi al pesto", price: 10, desc: "Gnocchi di patate fatti in casa con pesto genovese, pinoli tostati e parmigiano.", badges: ["veg"], allergens: "Contiene glutine, lattosio, frutta a guscio." }
+      ]
+    },
+    {
+      category: "Secondi",
+      items: [
+        { name: "Tagliata di manzo", price: 19, desc: "Controfiletto di manzo alla griglia, rucola, scaglie di grana e riduzione di aceto balsamico.", badges: ["gf"], allergens: "Contiene lattosio." },
+        { name: "Branzino al forno", price: 18, desc: "Branzino intero cotto al forno con patate, olive e pomodorini datterini.", badges: ["gf"], allergens: "Contiene pesce." },
+        { name: "Parmigiana di melanzane", price: 12, desc: "Melanzane fritte, pomodoro, mozzarella fiordilatte e basilico, gratinate al forno.", badges: ["veg"], allergens: "Contiene lattosio." }
+      ]
+    },
+    {
+      category: "Dolci",
+      items: [
+        { name: "Tiramisù della casa", price: 6, desc: "Savoiardi, mascarpone, caffè espresso e cacao amaro. Ricetta della nonna Elena.", badges: ["veg"], allergens: "Contiene glutine, uova, lattosio." },
+        { name: "Panna cotta ai frutti di bosco", price: 5.5, desc: "Panna cotta vellutata con coulis di frutti di bosco freschi.", badges: ["veg", "gf"], allergens: "Contiene lattosio." },
+        { name: "Cannolo siciliano", price: 5, desc: "Cialda croccante ripiena di ricotta fresca, gocce di cioccolato e granella di pistacchio.", badges: ["veg"], allergens: "Contiene glutine, lattosio, frutta a guscio." }
+      ]
+    },
+    {
+      category: "Bevande",
+      items: [
+        { name: "Acqua naturale / frizzante", price: 2.5, desc: "Bottiglia da 0,75L.", badges: ["veg", "gf"], allergens: "Nessun allergene." },
+        { name: "Vino della casa (calice)", price: 4, desc: "Rosso o bianco, selezione del sommelier, servito fresco.", badges: ["veg"], allergens: "Contiene solfiti." },
+        { name: "Caffè espresso", price: 1.5, desc: "Miscela arabica tostata artigianalmente.", badges: ["veg", "gf"], allergens: "Nessun allergene." }
+      ]
+    }
+  ];
 
-<div class="card">
-<h3>🚀 GitHub Pages</h3>
-<p>Nessun costo di hosting e pubblicazione immediata.</p>
-</div>
+  const BADGE_LABELS = {
+    veg: "Vegetariano",
+    spicy: "Piccante",
+    gf: "Senza glutine"
+  };
 
-</div>
+  const menuContainer = document.getElementById('menuContainer');
+  const tabsEl = document.getElementById('tabs');
+  const searchInput = document.getElementById('searchInput');
+  const emptyState = document.getElementById('emptyState');
 
-</section>
+  let activeCategory = 'Tutti';
 
-<footer>
-Mediterranean Luxury Menu Template © 2026
-</footer>
+  // ---------- Costruzione tabs ----------
+  function buildTabs(){
+    const categories = ['Tutti', ...MENU.map(c => c.category)];
+    tabsEl.innerHTML = '';
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'tab' + (cat === activeCategory ? ' active' : '');
+      btn.textContent = cat;
+      btn.addEventListener('click', () => {
+        activeCategory = cat;
+        buildTabs();
+        render();
+      });
+      tabsEl.appendChild(btn);
+    });
+  }
+
+  // ---------- Rendering del menu ----------
+  function render(){
+    const query = searchInput.value.trim().toLowerCase();
+    menuContainer.innerHTML = '';
+    let totalShown = 0;
+
+    MENU.forEach(catBlock => {
+      if(activeCategory !== 'Tutti' && catBlock.category !== activeCategory) return;
+
+      const filteredItems = catBlock.items.filter(item =>
+        item.name.toLowerCase().includes(query) ||
+        item.desc.toLowerCase().includes(query)
+      );
+
+      if(filteredItems.length === 0) return;
+
+      totalShown += filteredItems.length;
+
+      const section = document.createElement('section');
+      section.className = 'category-block';
+
+      const h2 = document.createElement('h2');
+      h2.innerHTML = `${catBlock.category} <span class="count sans">${filteredItems.length}</span>`;
+      section.appendChild(h2);
+
+      filteredItems.forEach(item => {
+        const dish = document.createElement('button');
+        dish.className = 'dish';
+        dish.setAttribute('type', 'button');
+
+        const left = document.createElement('div');
+        left.className = 'dish-left';
+
+        const name = document.createElement('div');
+        name.className = 'dish-name';
+        name.textContent = item.name;
+        left.appendChild(name);
+
+        if(item.badges.length){
+          const badgeWrap = document.createElement('div');
+          badgeWrap.className = 'dish-badges';
+          item.badges.forEach(b => {
+            const span = document.createElement('span');
+            span.className = 'badge ' + b;
+            span.textContent = BADGE_LABELS[b];
+            badgeWrap.appendChild(span);
+          });
+          left.appendChild(badgeWrap);
+        }
+
+        const price = document.createElement('div');
+        price.className = 'dish-price';
+        price.textContent = '€ ' + item.price.toFixed(2);
+
+        dish.appendChild(left);
+        dish.appendChild(price);
+
+        dish.addEventListener('click', () => openModal(item));
+
+        section.appendChild(dish);
+      });
+
+      menuContainer.appendChild(section);
+    });
+
+    emptyState.classList.toggle('show', totalShown === 0);
+  }
+
+  // ---------- Modale dettaglio piatto ----------
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalPrice = document.getElementById('modalPrice');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalBadges = document.getElementById('modalBadges');
+  const modalAllergens = document.getElementById('modalAllergens');
+  const modalCloseBtn = document.getElementById('modalCloseBtn');
+
+  function openModal(item){
+    modalTitle.textContent = item.name;
+    modalPrice.textContent = '€ ' + item.price.toFixed(2);
+    modalDesc.textContent = item.desc;
+    modalAllergens.textContent = item.allergens;
+    modalBadges.innerHTML = '';
+    item.badges.forEach(b => {
+      const span = document.createElement('span');
+      span.className = 'badge ' + b;
+      span.textContent = BADGE_LABELS[b];
+      modalBadges.appendChild(span);
+    });
+    modalBackdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(){
+    modalBackdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  modalCloseBtn.addEventListener('click', closeModal);
+  modalBackdrop.addEventListener('click', (e) => {
+    if(e.target === modalBackdrop) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closeModal();
+  });
+
+  // ---------- Ricerca ----------
+  searchInput.addEventListener('input', render);
+
+  // ---------- Init ----------
+  buildTabs();
+  render();
+</script>
 
 </body>
 </html>
