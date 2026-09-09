@@ -3,382 +3,133 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trattoria da Elena — Menu</title>
+<title>Menu Digitale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink: #1f2e22;
-    --ink-light: #2c4030;
-    --paper: #f6f1e4;
-    --paper-dim: #ece4d0;
-    --wine: #8c2f39;
-    --wine-dark: #6e2129;
-    --gold: #b08968;
-    --charcoal: #2b2621;
-    --line: rgba(43,38,33,0.16);
+    --red: #A32638;
+    --red-dark: #7C1B29;
+    --gold: #E2A63B;
+    --gold-dark: #B9832F;
+    --ink: #241A15;
+    --parchment: #FBF3E3;
+    --parchment-dim: #F1E4C9;
+    --teal: #2F5D50;
+    --line: rgba(36,26,21,0.15);
   }
-
   *{ box-sizing: border-box; }
-
-  html, body{
-    margin:0;
-    padding:0;
-    background: var(--ink);
-    color: var(--charcoal);
-    font-family: 'Iowan Old Style','Georgia',serif;
-  }
-
-  body{
-    min-height:100vh;
-  }
-
-  @font-face{
-    /* fallback stack only — no external fetch needed */
-  }
-
-  .sans{
-    font-family: -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  }
+  html, body{ margin:0; padding:0; background: var(--ink); color: var(--ink); font-family:'Lora',Georgia,serif; }
+  .display{ font-family:'Yeseva One', Georgia, serif; }
 
   /* ---------- Header ---------- */
   header{
     background: var(--ink);
-    color: var(--paper);
-    padding: 2.6rem 1.5rem 2rem;
+    color: var(--parchment);
+    padding: 2.8rem 1.5rem 2.2rem;
     text-align:center;
-    position: relative;
-    overflow:hidden;
+  }
+  #logoImg{ max-width: 110px; max-height: 110px; border-radius: 50%; margin-bottom: 1rem; display:none; object-fit:cover; border: 3px solid var(--gold); }
+  header h1{ font-size:clamp(2.1rem,6vw,3rem); margin:0 0 0.6rem; font-weight:400; color: var(--parchment); letter-spacing: 0.01em; }
+  .flourish{ display:flex; align-items:center; justify-content:center; gap:0.7rem; margin: 0 auto 0.7rem; max-width: 260px; }
+  .flourish .rule{ flex:1; height:1px; background: var(--gold); opacity:0.6; }
+  .flourish svg{ width:10px; height:10px; flex-shrink:0; }
+  header p.tagline{ font-family:'Lora',serif; font-style:italic; color: var(--gold); margin:0; font-size:1rem; letter-spacing:0.02em; }
+
+  .zigzag{
+    height: 18px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='18' viewBox='0 0 40 18'%3E%3Crect width='40' height='18' fill='%23241A15'/%3E%3Cpolygon points='0,18 10,0 20,18' fill='%23E2A63B'/%3E%3Cpolygon points='20,18 30,0 40,18' fill='%23A32638'/%3E%3C/svg%3E");
+    background-size: 40px 18px;
+    background-repeat: repeat-x;
   }
 
-  header::after{
-    content:"";
-    position:absolute;
-    left:0; right:0; bottom:0;
-    height:14px;
-    background: repeating-linear-gradient(
-      -45deg,
-      var(--gold) 0 10px,
-      transparent 10px 20px
-    );
-    opacity:0.5;
-  }
-
-  header h1{
-    font-size: clamp(2.1rem, 6vw, 3rem);
-    margin: 0 0 0.35rem;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-  }
-
-  header p.tagline{
-    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
-    color: var(--gold);
-    margin: 0;
-    font-size: 0.95rem;
-    letter-spacing: 0.04em;
-  }
-
-  /* ---------- Search + filter bar ---------- */
-  .controls{
-    position: sticky;
-    top:0;
-    z-index: 30;
-    background: var(--paper);
-    padding: 0.9rem 1rem 0.8rem;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .search-wrap{
-    max-width: 640px;
-    margin: 0 auto 0.8rem;
-    position: relative;
-  }
-
+  /* ---------- Controls ---------- */
+  .controls{ position:sticky; top:0; z-index:30; background: var(--parchment); padding: 1rem 1rem 0.9rem; border-bottom: 2px solid var(--parchment-dim); }
+  .search-wrap{ max-width:640px; margin:0 auto 0.8rem; position:relative; }
   .search-wrap input{
-    width:100%;
-    padding: 0.7rem 1rem 0.7rem 2.4rem;
-    border-radius: 999px;
-    border: 1px solid var(--line);
-    background: #fff;
-    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
-    font-size: 0.95rem;
-    color: var(--charcoal);
-    outline: none;
+    width:100%; padding:0.7rem 1rem 0.7rem 2.4rem; border-radius:999px; border:1.5px solid var(--line);
+    background:#fff; font-family:'Lora',serif; font-size:0.95rem; color:var(--ink); outline:none;
   }
+  .search-wrap input:focus{ border-color: var(--gold-dark); box-shadow: 0 0 0 3px rgba(226,166,59,0.18); }
+  .search-wrap svg{ position:absolute; left:0.9rem; top:50%; transform:translateY(-50%); width:15px; height:15px; opacity:0.5; }
 
-  .search-wrap input:focus{
-    border-color: var(--wine);
-    box-shadow: 0 0 0 3px rgba(140,47,57,0.12);
-  }
-
-  .search-wrap svg{
-    position:absolute;
-    left: 0.85rem;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 16px; height:16px;
-    opacity:0.5;
-  }
-
-  .tabs{
-    max-width: 640px;
-    margin: 0 auto;
-    display:flex;
-    gap: 0.5rem;
-    overflow-x: auto;
-    scrollbar-width: none;
-    padding-bottom: 2px;
-  }
-
+  .tabs{ max-width:640px; margin:0 auto; display:flex; gap:0.5rem; overflow-x:auto; scrollbar-width:none; padding-bottom:2px; }
   .tabs::-webkit-scrollbar{ display:none; }
-
   .tab{
-    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
-    flex: 0 0 auto;
-    padding: 0.45rem 1rem;
-    border-radius: 999px;
-    border: 1px solid var(--line);
-    background: transparent;
-    color: var(--charcoal);
-    font-size: 0.88rem;
-    cursor:pointer;
+    font-family:'Lora',serif; font-weight:600; flex:0 0 auto; padding:0.4rem 1.05rem; border-radius:999px;
+    border:1.5px solid var(--line); background:transparent; color:var(--ink); font-size:0.86rem; cursor:pointer; white-space:nowrap;
     transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-    white-space: nowrap;
   }
-
-  .tab.active{
-    background: var(--wine);
-    border-color: var(--wine);
-    color: var(--paper);
-  }
+  .tab.active{ background: var(--red); border-color: var(--red); color: var(--parchment); }
 
   /* ---------- Menu body ---------- */
-  main{
-    background: var(--paper);
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 1.6rem 1.2rem 4rem;
-  }
-
-  .category-block{
-    margin-bottom: 2.4rem;
-  }
-
+  main{ background: var(--parchment); max-width:720px; margin:0 auto; padding:1.8rem 1.2rem 4rem; min-height: 40vh; }
+  .category-block{ margin-bottom:2.6rem; }
   .category-block h2{
-    font-size: 1.5rem;
-    font-weight: 500;
-    color: var(--wine-dark);
-    margin: 0 0 0.9rem;
-    display:flex;
-    align-items:baseline;
-    gap: 0.6rem;
+    display:flex; align-items:baseline; gap:0.6rem;
+    font-family:'Yeseva One',serif; font-weight:400; font-size:1.55rem; color:var(--red-dark);
+    margin:0 0 1rem; padding-left:0.85rem; border-left: 4px solid var(--gold);
   }
-
-  .category-block h2 .count{
-    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
-    font-size: 0.7rem;
-    color: var(--gold);
-    font-weight: 600;
-  }
+  .category-block h2 .count{ font-family:'Lora',serif; font-style:italic; font-size:0.78rem; color:var(--gold-dark); font-weight:500; }
 
   .dish{
-    display:flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 0.6rem;
-    padding: 0.85rem 0;
-    border-bottom: 1px dashed var(--line);
-    cursor: pointer;
-    background: none;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    width:100%;
-    text-align:left;
-    font: inherit;
-    color: inherit;
+    display:flex; justify-content:space-between; align-items:center; gap:0.8rem; padding:0.9rem 0;
+    border-bottom:1px solid var(--line); cursor:pointer; background:none; border-left:none; border-right:none; border-top:none;
+    width:100%; text-align:left; font:inherit; color:inherit;
   }
+  .dish:last-child{ border-bottom:none; }
+  .dish-thumb{ width:58px; height:58px; border-radius:10px; object-fit:cover; flex-shrink:0; background: var(--parchment-dim); }
+  .dish-left{ flex:1; min-width:0; }
+  .dish-name{ font-size:1.1rem; font-weight:500; color:var(--ink); }
+  .dish-badges{ margin-top:0.3rem; display:flex; gap:0.35rem; flex-wrap:wrap; }
+  .badge{ font-family:'Lora',serif; font-size:0.68rem; padding:0.14rem 0.55rem; border-radius:999px; font-weight:600; }
+  .badge.veg{ background:#dce9e4; color: var(--teal); }
+  .badge.spicy{ background:#f2dade; color: var(--red-dark); }
+  .badge.gf{ background:#f2e3c4; color: var(--gold-dark); }
+  .dish-price{ font-family:'Lora',serif; font-weight:700; color: var(--red-dark); white-space:nowrap; font-size:1.02rem; }
 
-  .dish:last-child{ border-bottom: none; }
-
-  .dish:hover .dish-name,
-  .dish:focus-visible .dish-name{
-    color: var(--wine);
-  }
-
-  .dish:focus-visible{
-    outline: 2px solid var(--wine);
-    outline-offset: 2px;
-  }
-
-  .dish-left{
-    flex: 1;
-    min-width:0;
-  }
-
-  .dish-name{
-    font-size: 1.08rem;
-    transition: color 0.15s ease;
-  }
-
-  .dish-badges{
-    margin-top: 0.25rem;
-    display:flex;
-    gap: 0.35rem;
-    flex-wrap: wrap;
-  }
-
-  .badge{
-    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
-    font-size: 0.66rem;
-    padding: 0.12rem 0.5rem;
-    border-radius: 999px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-  }
-
-  .badge.veg{ background: #dbe7d4; color: #3c5a34; }
-  .badge.spicy{ background: #f4dcd6; color: var(--wine-dark); }
-  .badge.gf{ background: #e6ddc8; color: #6b5730; }
-
-  .dish-price{
-    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
-    font-weight: 600;
-    color: var(--charcoal);
-    white-space: nowrap;
-  }
-
-  .empty-state{
-    text-align:center;
-    padding: 3rem 1rem;
-    color: var(--charcoal);
-    opacity: 0.6;
-    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
-    display:none;
-  }
-
+  .empty-state{ text-align:center; padding:3rem 1rem; color:var(--ink); opacity:0.55; font-family:'Lora',serif; font-style:italic; display:none; }
   .empty-state.show{ display:block; }
 
   /* ---------- Modal ---------- */
-  .modal-backdrop{
-    position: fixed;
-    inset:0;
-    background: rgba(31,46,34,0.55);
-    display:flex;
-    align-items:flex-end;
-    justify-content:center;
-    z-index: 100;
-    opacity:0;
-    pointer-events:none;
-    transition: opacity 0.2s ease;
-  }
-
-  .modal-backdrop.open{
-    opacity:1;
-    pointer-events:auto;
-  }
-
-  @media (min-width: 640px){
-    .modal-backdrop{ align-items:center; }
-  }
-
+  .modal-backdrop{ position:fixed; inset:0; background:rgba(36,26,21,0.6); display:flex; align-items:flex-end; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.2s ease; }
+  .modal-backdrop.open{ opacity:1; pointer-events:auto; }
+  @media (min-width:640px){ .modal-backdrop{ align-items:center; } }
   .modal{
-    background: var(--paper);
-    width: 100%;
-    max-width: 480px;
-    border-radius: 18px 18px 0 0;
-    padding: 1.8rem 1.6rem 2.2rem;
-    transform: translateY(24px);
-    transition: transform 0.22s ease;
-    max-height: 82vh;
-    overflow-y:auto;
+    background: var(--parchment); width:100%; max-width:480px; border-radius:18px 18px 0 0;
+    padding:1.8rem 1.6rem 2.2rem; transform:translateY(24px); transition:transform 0.22s ease;
+    max-height:86vh; overflow-y:auto; position:relative; border-top: 4px solid var(--gold);
   }
+  @media (min-width:640px){ .modal{ border-radius:18px; } }
+  .modal-backdrop.open .modal{ transform:translateY(0); }
+  .modal-img{ width:100%; max-height:220px; object-fit:cover; border-radius:12px; margin-bottom:1rem; display:none; }
+  .modal-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; }
+  .modal h3{ font-family:'Yeseva One',serif; font-weight:400; font-size:1.5rem; margin:0 0 0.3rem; color:var(--red-dark); }
+  .modal .modal-price{ font-family:'Lora',serif; font-weight:700; font-size:1.2rem; color: var(--red-dark); white-space:nowrap; }
+  .modal-close{ background: var(--parchment-dim); border:none; width:30px; height:30px; border-radius:50%; font-size:1rem; cursor:pointer; color:var(--ink); position:absolute; top:1.4rem; right:1.4rem; }
+  .modal-badges{ margin:0.6rem 0 1rem; display:flex; gap:0.4rem; flex-wrap:wrap; }
+  .modal p.desc{ font-size:1rem; line-height:1.65; margin:0 0 1rem; }
+  .modal .allergens{ font-family:'Lora',serif; font-style:italic; font-size:0.85rem; color:var(--ink); opacity:0.65; border-top:1px solid var(--line); padding-top:0.9rem; }
 
-  @media (min-width: 640px){
-    .modal{ border-radius: 18px; }
-  }
+  footer{ text-align:center; padding:1.8rem 1rem 2.4rem; font-family:'Lora',serif; font-style:italic; font-size:0.85rem; color: var(--gold); background: var(--ink); }
 
-  .modal-backdrop.open .modal{
-    transform: translateY(0);
-  }
-
-  .modal-top{
-    display:flex;
-    justify-content: space-between;
-    align-items:flex-start;
-    gap: 1rem;
-  }
-
-  .modal h3{
-    font-size: 1.5rem;
-    margin: 0 0 0.3rem;
-    color: var(--wine-dark);
-    font-weight:500;
-  }
-
-  .modal .modal-price{
-    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
-    font-weight:700;
-    font-size: 1.15rem;
-    color: var(--charcoal);
-    white-space: nowrap;
-  }
-
-  .modal-close{
-    background: var(--paper-dim);
-    border: none;
-    width: 30px; height:30px;
-    border-radius: 50%;
-    font-size: 1rem;
-    line-height:1;
-    cursor:pointer;
-    color: var(--charcoal);
-    flex-shrink:0;
-  }
-
-  .modal-badges{
-    margin: 0.6rem 0 1rem;
-    display:flex;
-    gap: 0.4rem;
-    flex-wrap:wrap;
-  }
-
-  .modal p.desc{
-    font-size: 1rem;
-    line-height: 1.6;
-    margin: 0 0 1rem;
-  }
-
-  .modal .allergens{
-    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
-    font-size: 0.82rem;
-    color: var(--charcoal);
-    opacity: 0.7;
-    border-top: 1px solid var(--line);
-    padding-top: 0.9rem;
-  }
-
-  /* ---------- Footer ---------- */
-  footer{
-    text-align:center;
-    padding: 1.6rem 1rem 2.2rem;
-    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
-    font-size: 0.78rem;
-    color: var(--paper);
-    background: var(--ink);
-    opacity: 0.75;
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    *{ transition: none !important; }
-  }
+  @media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Trattoria da Elena</h1>
-  <p class="tagline">MENU DIGITALE · AGGIORNATO OGGI</p>
+  <img id="logoImg" alt="Logo">
+  <h1 id="restaurantName" class="display">Caricamento...</h1>
+  <div class="flourish">
+    <span class="rule"></span>
+    <svg viewBox="0 0 10 10"><polygon points="5,0 10,5 5,10 0,5" fill="#E2A63B"/></svg>
+    <span class="rule"></span>
+  </div>
+  <p class="tagline" id="restaurantTagline"></p>
 </header>
+<div class="zigzag"></div>
 
 <div class="controls">
   <div class="search-wrap">
@@ -390,147 +141,117 @@
 
 <main id="menuContainer"></main>
 
-<div class="empty-state sans" id="emptyState">Nessun piatto trovato. Prova un'altra ricerca.</div>
+<div class="empty-state" id="emptyState">Nessun piatto trovato. Prova un'altra ricerca.</div>
 
-<footer>Trattoria da Elena · Via delle Erbe 12 · Aperti tutti i giorni 12:00–15:00 / 19:00–23:00</footer>
+<footer id="footerInfo"></footer>
 
 <div class="modal-backdrop" id="modalBackdrop">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalCloseBtn" aria-label="Chiudi">✕</button>
+    <img class="modal-img" id="modalImg" alt="">
     <div class="modal-top">
-      <div>
-        <h3 id="modalTitle"></h3>
-      </div>
+      <div><h3 id="modalTitle"></h3></div>
       <span class="modal-price" id="modalPrice"></span>
     </div>
     <div class="modal-badges" id="modalBadges"></div>
     <p class="desc" id="modalDesc"></p>
-    <p class="allergens sans" id="modalAllergens"></p>
-    <button class="modal-close sans" id="modalCloseBtn" aria-label="Chiudi" style="position:absolute; top:1.4rem; right:1.4rem;">✕</button>
+    <p class="allergens" id="modalAllergens"></p>
   </div>
 </div>
 
 <script>
-  // ============ DATI DEL MENU ============
-  // Modifica liberamente questo array per personalizzare il tuo menu.
-  const MENU = [
-    {
-      category: "Antipasti",
-      items: [
-        { name: "Bruschetta al pomodoro", price: 6.5, desc: "Pane casereccio abbrustolito, pomodorino fresco, basilico e un filo d'olio extravergine.", badges: ["veg"], allergens: "Contiene glutine." },
-        { name: "Tagliere di salumi e formaggi", price: 14, desc: "Selezione di salumi locali, formaggi stagionati, miele di castagno e confettura di fichi.", badges: [], allergens: "Contiene lattosio, solfiti." },
-        { name: "Polpo alla brace", price: 13, desc: "Polpo grigliato su crema di patate, olive taggiasche e polvere di capperi.", badges: ["gf"], allergens: "Contiene molluschi." }
-      ]
-    },
-    {
-      category: "Primi",
-      items: [
-        { name: "Tagliatelle al ragù", price: 11, desc: "Pasta fresca all'uovo con ragù di manzo cotto lentamente per 6 ore.", badges: [], allergens: "Contiene glutine, uova." },
-        { name: "Risotto ai funghi porcini", price: 12.5, desc: "Riso Carnaroli mantecato con funghi porcini freschi e una spolverata di prezzemolo.", badges: ["veg", "gf"], allergens: "Contiene lattosio." },
-        { name: "Spaghetti all'arrabbiata", price: 9.5, desc: "Spaghetti trafilati al bronzo, pomodoro San Marzano, aglio e peperoncino piccante.", badges: ["veg", "spicy"], allergens: "Contiene glutine." },
-        { name: "Gnocchi al pesto", price: 10, desc: "Gnocchi di patate fatti in casa con pesto genovese, pinoli tostati e parmigiano.", badges: ["veg"], allergens: "Contiene glutine, lattosio, frutta a guscio." }
-      ]
-    },
-    {
-      category: "Secondi",
-      items: [
-        { name: "Tagliata di manzo", price: 19, desc: "Controfiletto di manzo alla griglia, rucola, scaglie di grana e riduzione di aceto balsamico.", badges: ["gf"], allergens: "Contiene lattosio." },
-        { name: "Branzino al forno", price: 18, desc: "Branzino intero cotto al forno con patate, olive e pomodorini datterini.", badges: ["gf"], allergens: "Contiene pesce." },
-        { name: "Parmigiana di melanzane", price: 12, desc: "Melanzane fritte, pomodoro, mozzarella fiordilatte e basilico, gratinate al forno.", badges: ["veg"], allergens: "Contiene lattosio." }
-      ]
-    },
-    {
-      category: "Dolci",
-      items: [
-        { name: "Tiramisù della casa", price: 6, desc: "Savoiardi, mascarpone, caffè espresso e cacao amaro. Ricetta della nonna Elena.", badges: ["veg"], allergens: "Contiene glutine, uova, lattosio." },
-        { name: "Panna cotta ai frutti di bosco", price: 5.5, desc: "Panna cotta vellutata con coulis di frutti di bosco freschi.", badges: ["veg", "gf"], allergens: "Contiene lattosio." },
-        { name: "Cannolo siciliano", price: 5, desc: "Cialda croccante ripiena di ricotta fresca, gocce di cioccolato e granella di pistacchio.", badges: ["veg"], allergens: "Contiene glutine, lattosio, frutta a guscio." }
-      ]
-    },
-    {
-      category: "Bevande",
-      items: [
-        { name: "Acqua naturale / frizzante", price: 2.5, desc: "Bottiglia da 0,75L.", badges: ["veg", "gf"], allergens: "Nessun allergene." },
-        { name: "Vino della casa (calice)", price: 4, desc: "Rosso o bianco, selezione del sommelier, servito fresco.", badges: ["veg"], allergens: "Contiene solfiti." },
-        { name: "Caffè espresso", price: 1.5, desc: "Miscela arabica tostata artigianalmente.", badges: ["veg", "gf"], allergens: "Nessun allergene." }
-      ]
-    }
-  ];
-
-  const BADGE_LABELS = {
-    veg: "Vegetariano",
-    spicy: "Piccante",
-    gf: "Senza glutine"
-  };
+  const BADGE_LABELS = { veg: "Vegetariano", spicy: "Piccante", gf: "Senza glutine" };
+  let MENU_DATA = null;
+  let activeCategory = 'Tutti';
 
   const menuContainer = document.getElementById('menuContainer');
   const tabsEl = document.getElementById('tabs');
   const searchInput = document.getElementById('searchInput');
   const emptyState = document.getElementById('emptyState');
 
-  let activeCategory = 'Tutti';
+  async function init(){
+    try{
+      const res = await fetch('data.json?t=' + Date.now());
+      MENU_DATA = await res.json();
+    }catch(e){
+      document.getElementById('restaurantName').textContent = 'Errore nel caricamento del menu';
+      return;
+    }
 
-  // ---------- Costruzione tabs ----------
+    document.title = MENU_DATA.restaurant.name || 'Menu Digitale';
+    document.getElementById('restaurantName').textContent = MENU_DATA.restaurant.name || '';
+    document.getElementById('restaurantTagline').textContent = MENU_DATA.restaurant.tagline || '';
+    document.getElementById('footerInfo').textContent = [MENU_DATA.restaurant.name, MENU_DATA.restaurant.address, MENU_DATA.restaurant.hours].filter(Boolean).join(' · ');
+
+    if(MENU_DATA.restaurant.logo){
+      const logoImg = document.getElementById('logoImg');
+      logoImg.src = MENU_DATA.restaurant.logo;
+      logoImg.style.display = 'inline-block';
+    }
+
+    buildTabs();
+    render();
+  }
+
   function buildTabs(){
-    const categories = ['Tutti', ...MENU.map(c => c.category)];
+    const categories = ['Tutti', ...MENU_DATA.categories.map(c => c.name)];
     tabsEl.innerHTML = '';
     categories.forEach(cat => {
       const btn = document.createElement('button');
       btn.className = 'tab' + (cat === activeCategory ? ' active' : '');
       btn.textContent = cat;
-      btn.addEventListener('click', () => {
-        activeCategory = cat;
-        buildTabs();
-        render();
-      });
+      btn.addEventListener('click', () => { activeCategory = cat; buildTabs(); render(); });
       tabsEl.appendChild(btn);
     });
   }
 
-  // ---------- Rendering del menu ----------
   function render(){
     const query = searchInput.value.trim().toLowerCase();
     menuContainer.innerHTML = '';
     let totalShown = 0;
 
-    MENU.forEach(catBlock => {
-      if(activeCategory !== 'Tutti' && catBlock.category !== activeCategory) return;
+    MENU_DATA.categories.forEach(catBlock => {
+      if(activeCategory !== 'Tutti' && catBlock.name !== activeCategory) return;
 
       const filteredItems = catBlock.items.filter(item =>
-        item.name.toLowerCase().includes(query) ||
-        item.desc.toLowerCase().includes(query)
+        item.name.toLowerCase().includes(query) || (item.desc || '').toLowerCase().includes(query)
       );
-
       if(filteredItems.length === 0) return;
-
       totalShown += filteredItems.length;
 
       const section = document.createElement('section');
       section.className = 'category-block';
-
       const h2 = document.createElement('h2');
-      h2.innerHTML = `${catBlock.category} <span class="count sans">${filteredItems.length}</span>`;
+      h2.innerHTML = `${catBlock.name} <span class="count">(${filteredItems.length})</span>`;
       section.appendChild(h2);
 
       filteredItems.forEach(item => {
         const dish = document.createElement('button');
         dish.className = 'dish';
-        dish.setAttribute('type', 'button');
+        dish.setAttribute('type','button');
+
+        if(item.image){
+          const thumb = document.createElement('img');
+          thumb.className = 'dish-thumb';
+          thumb.src = item.image;
+          thumb.alt = item.name;
+          dish.appendChild(thumb);
+        }
 
         const left = document.createElement('div');
         left.className = 'dish-left';
-
         const name = document.createElement('div');
         name.className = 'dish-name';
         name.textContent = item.name;
         left.appendChild(name);
 
-        if(item.badges.length){
+        if(item.badges && item.badges.length){
           const badgeWrap = document.createElement('div');
           badgeWrap.className = 'dish-badges';
           item.badges.forEach(b => {
             const span = document.createElement('span');
             span.className = 'badge ' + b;
-            span.textContent = BADGE_LABELS[b];
+            span.textContent = BADGE_LABELS[b] || b;
             badgeWrap.appendChild(span);
           });
           left.appendChild(badgeWrap);
@@ -538,13 +259,11 @@
 
         const price = document.createElement('div');
         price.className = 'dish-price';
-        price.textContent = '€ ' + item.price.toFixed(2);
+        price.textContent = '€ ' + Number(item.price || 0).toFixed(2);
 
         dish.appendChild(left);
         dish.appendChild(price);
-
         dish.addEventListener('click', () => openModal(item));
-
         section.appendChild(dish);
       });
 
@@ -554,51 +273,39 @@
     emptyState.classList.toggle('show', totalShown === 0);
   }
 
-  // ---------- Modale dettaglio piatto ----------
   const modalBackdrop = document.getElementById('modalBackdrop');
   const modalTitle = document.getElementById('modalTitle');
   const modalPrice = document.getElementById('modalPrice');
   const modalDesc = document.getElementById('modalDesc');
   const modalBadges = document.getElementById('modalBadges');
   const modalAllergens = document.getElementById('modalAllergens');
+  const modalImg = document.getElementById('modalImg');
   const modalCloseBtn = document.getElementById('modalCloseBtn');
 
   function openModal(item){
     modalTitle.textContent = item.name;
-    modalPrice.textContent = '€ ' + item.price.toFixed(2);
-    modalDesc.textContent = item.desc;
-    modalAllergens.textContent = item.allergens;
+    modalPrice.textContent = '€ ' + Number(item.price || 0).toFixed(2);
+    modalDesc.textContent = item.desc || '';
+    modalAllergens.textContent = item.allergens || '';
     modalBadges.innerHTML = '';
-    item.badges.forEach(b => {
+    (item.badges || []).forEach(b => {
       const span = document.createElement('span');
       span.className = 'badge ' + b;
-      span.textContent = BADGE_LABELS[b];
+      span.textContent = BADGE_LABELS[b] || b;
       modalBadges.appendChild(span);
     });
+    if(item.image){ modalImg.src = item.image; modalImg.style.display = 'block'; }
+    else{ modalImg.style.display = 'none'; }
     modalBackdrop.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
-
-  function closeModal(){
-    modalBackdrop.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
+  function closeModal(){ modalBackdrop.classList.remove('open'); document.body.style.overflow = ''; }
   modalCloseBtn.addEventListener('click', closeModal);
-  modalBackdrop.addEventListener('click', (e) => {
-    if(e.target === modalBackdrop) closeModal();
-  });
-  document.addEventListener('keydown', (e) => {
-    if(e.key === 'Escape') closeModal();
-  });
-
-  // ---------- Ricerca ----------
+  modalBackdrop.addEventListener('click', (e) => { if(e.target === modalBackdrop) closeModal(); });
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
   searchInput.addEventListener('input', render);
 
-  // ---------- Init ----------
-  buildTabs();
-  render();
+  init();
 </script>
-
 </body>
 </html>
